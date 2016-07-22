@@ -27,6 +27,9 @@
 		<delegateAnalysisEngine key="stanford_postagger">
 			<import name="desc.stanford_postagger" />
 		</delegateAnalysisEngine>
+		<delegateAnalysisEngine key="stanford_entityrecognizer">
+			<import name="desc.stanford_entityrecognizer" />
+		</delegateAnalysisEngine>
 	</delegateAnalysisEngineSpecifiers>
 	<analysisEngineMetaData>
 		<name>pipeline</name>
@@ -42,6 +45,7 @@
 				<node>opennlp_tokenizer</node>
 				<node>matetools_lemmatizer</node>
 				<node>stanford_postagger</node>
+				<node>stanford_entityrecognizer</node>
 				<!--<node>matetools_postagger</node> -->
 				<node>custom_frequencer</node>
 			</fixedFlow>
