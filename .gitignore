@@ -1,0 +1,6 @@
+bin
+data/*.cas
+resources/matetools/*.*
+resources/opennlp/*.*
+resources/stanford/*.*
+target
