@@ -1,3 +1,4 @@
+.settings/
 bin
 data/*.cas
 resources/matetools/*.*
