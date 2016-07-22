@@ -24,6 +24,9 @@ public class Postagger extends Processor_ImplBase {
 
 	@Override
 	public void processView(JCas view) {
+		if (!detectors.containsKey(view.getDocumentLanguage()))
+			return;
+		
 		Token token = null;
 		List<Word> tokens = null;
 		List<Token> tokenList = null;
@@ -42,6 +45,7 @@ public class Postagger extends Processor_ImplBase {
 			for (Token t : tokenList)
 				tokens.add(new Word(t.getCoveredText()));
 
+			
 			postags = detectors.get(view.getDocumentLanguage()).tagSentence(tokens);
 
 			for (int i = 0; i < postags.size(); i++) {

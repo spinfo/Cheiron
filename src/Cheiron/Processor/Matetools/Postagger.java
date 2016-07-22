@@ -26,6 +26,9 @@ public class Postagger extends JCasAnnotator_ImplBase {
 	private static Map<String, Parser> pdetectors = new HashMap<String, Parser>();
 
 	private void processView(JCas view) {
+		if (ldetectors.containsKey(view.getDocumentLanguage()) || !pdetectors.containsKey(view.getDocumentLanguage()))
+			return;
+
 		Token token = null;
 		String[] tokens = null;
 		ArrayList<Token> tokenList = null;
@@ -87,8 +90,7 @@ public class Postagger extends JCasAnnotator_ImplBase {
 				}
 				token.setPosTag(tokenArray);
 
-				System.out
-						.println("Matetools.Postagger: " + token.getCoveredText() + "/" + postag.getValue());
+				System.out.println("Matetools.Postagger: " + token.getCoveredText() + "/" + postag.getValue());
 			}
 
 			token_it.moveToFirst();

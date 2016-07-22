@@ -23,6 +23,9 @@ public class Postagger extends Processor_ImplBase {
 
 	@Override
 	public void processView(JCas view) {
+		if (!detectors.containsKey(view.getDocumentLanguage()))
+			return;
+
 		Token token = null;
 		String[] tokens = null;
 		List<Token> tokenList = null;
