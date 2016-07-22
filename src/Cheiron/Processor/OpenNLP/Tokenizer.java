@@ -20,6 +20,9 @@ public class Tokenizer extends Processor_ImplBase {
 
 	@Override
 	public void processView(JCas view) {
+		if (!detectors.containsKey(view.getDocumentLanguage()))
+			return;
+
 		Token token = null;
 
 		for (Sentence sentence : JCasUtil.select(view, Sentence.class)) {

@@ -22,6 +22,9 @@ public class Lemmatizer extends JCasAnnotator_ImplBase {
 	private static Map<String, is2.lemmatizer2.Lemmatizer> detectors = new HashMap<String, is2.lemmatizer2.Lemmatizer>();
 
 	private void processView(JCas view) {
+		if (!detectors.containsKey(view.getDocumentLanguage()))
+			return;
+
 		Token token = null;
 		String[] tokens = null;
 		ArrayList<Token> tokenList = null;
@@ -72,8 +75,7 @@ public class Lemmatizer extends JCasAnnotator_ImplBase {
 				lemma.addToIndexes();
 				token.setLemma(lemma);
 
-				System.out
-						.println("Matetools.Lemmatizer: " + token.getCoveredText() + "/" + lemma.getValue());
+				System.out.println("Matetools.Lemmatizer: " + token.getCoveredText() + "/" + lemma.getValue());
 			}
 
 			token_it.moveToFirst();

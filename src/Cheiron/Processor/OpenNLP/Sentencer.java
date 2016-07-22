@@ -18,6 +18,9 @@ public class Sentencer extends Processor_ImplBase {
 
 	@Override
 	public void processView(JCas view) {
+		if (!detectors.containsKey(view.getDocumentLanguage()))
+			return;
+
 		Sentence sentence = null;
 
 		for (Span span : detectors.get(view.getDocumentLanguage()).sentPosDetect(view.getDocumentText())) {
