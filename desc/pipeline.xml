@@ -4,37 +4,37 @@
 	<primitive>false</primitive>
 	<delegateAnalysisEngineSpecifiers>
 		<delegateAnalysisEngine key="tika_langdetector">
-			<import name="desc.tika_langdetector"/>
+			<import name="desc.tika_langdetector" />
 		</delegateAnalysisEngine>
 		<delegateAnalysisEngine key="opennlp_sentencer">
-			<import name="desc.opennlp_sentencer"/>
+			<import name="desc.opennlp_sentencer" />
 		</delegateAnalysisEngine>
 		<delegateAnalysisEngine key="opennlp_tokenizer">
-			<import name="desc.opennlp_tokenizer"/>
+			<import name="desc.opennlp_tokenizer" />
 		</delegateAnalysisEngine>
 		<delegateAnalysisEngine key="opennlp_postagger">
-			<import name="desc.opennlp_postagger"/>
+			<import name="desc.opennlp_postagger" />
 		</delegateAnalysisEngine>
 		<delegateAnalysisEngine key="matetools_lemmatizer">
-			<import name="desc.matetools_lemmatizer"/>
+			<import name="desc.matetools_lemmatizer" />
 		</delegateAnalysisEngine>
 		<delegateAnalysisEngine key="matetools_postagger">
-			<import name="desc.matetools_postagger"/>
+			<import name="desc.matetools_postagger" />
 		</delegateAnalysisEngine>
 		<delegateAnalysisEngine key="custom_frequencer">
-			<import name="desc.custom_frequencer"/>
+			<import name="desc.custom_frequencer" />
 		</delegateAnalysisEngine>
 		<delegateAnalysisEngine key="stanford_postagger">
-			<import name="desc.stanford_postagger"/>
+			<import name="desc.stanford_postagger" />
 		</delegateAnalysisEngine>
 	</delegateAnalysisEngineSpecifiers>
 	<analysisEngineMetaData>
 		<name>pipeline</name>
-		<description/>
+		<description />
 		<version>1.0</version>
-		<vendor/>
-		<configurationParameters searchStrategy="language_fallback"/>
-		<configurationParameterSettings/>
+		<vendor />
+		<configurationParameters searchStrategy="language_fallback" />
+		<configurationParameterSettings />
 		<flowConstraints>
 			<fixedFlow>
 				<node>tika_langdetector</node>
@@ -42,17 +42,17 @@
 				<node>opennlp_tokenizer</node>
 				<node>matetools_lemmatizer</node>
 				<node>stanford_postagger</node>
-				<!--<node>matetools_postagger</node>-->
+				<!--<node>matetools_postagger</node> -->
 				<node>custom_frequencer</node>
 			</fixedFlow>
 		</flowConstraints>
-		<typePriorities/>
-		<fsIndexCollection/>
+		<typePriorities />
+		<fsIndexCollection />
 		<capabilities>
 			<capability>
-				<inputs/>
-				<outputs/>
-				<languagesSupported/>
+				<inputs />
+				<outputs />
+				<languagesSupported />
 			</capability>
 		</capabilities>
 		<operationalProperties>
@@ -61,5 +61,5 @@
 			<outputsNewCASes>false</outputsNewCASes>
 		</operationalProperties>
 	</analysisEngineMetaData>
-	<resourceManagerConfiguration/>
+	<resourceManagerConfiguration />
 </analysisEngineDescription>

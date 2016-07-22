@@ -21,7 +21,7 @@ import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 public class Postagger extends Processor_ImplBase {
 
 	private static Map<String, MaxentTagger> detectors = new HashMap<String, MaxentTagger>();
-	
+
 	@Override
 	public void processView(JCas view) {
 		Token token = null;
@@ -41,9 +41,9 @@ public class Postagger extends Processor_ImplBase {
 
 			for (Token t : tokenList)
 				tokens.add(new Word(t.getCoveredText()));
-			
+
 			postags = detectors.get(view.getDocumentLanguage()).tagSentence(tokens);
-			
+
 			for (int i = 0; i < postags.size(); i++) {
 				token = (Token) tokenList.get(i);
 
@@ -72,8 +72,6 @@ public class Postagger extends Processor_ImplBase {
 
 	@Override
 	public void loadDetector(String lang) {
-		System.out.println(lang);
-		
 		if (detectors.containsKey(lang))
 			return;
 

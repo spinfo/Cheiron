@@ -2,29 +2,30 @@
 <analysisEngineDescription xmlns="http://uima.apache.org/resourceSpecifier">
 	<frameworkImplementation>org.apache.uima.java</frameworkImplementation>
 	<primitive>true</primitive>
-	<annotatorImplementationName>Cheiron.Processor.Custom.Frequenzer</annotatorImplementationName>
+	<annotatorImplementationName>Cheiron.Processor.Custom.Frequenzer
+	</annotatorImplementationName>
 	<analysisEngineMetaData>
 		<name>custom_frequencer</name>
-		<description/>
+		<description />
 		<version>1.0</version>
-		<vendor/>
-		<configurationParameters/>
-		<configurationParameterSettings/>
+		<vendor />
+		<configurationParameters />
+		<configurationParameterSettings />
 		<typeSystemDescription>
 			<imports>
-				<import location="jcore-basic-types.xml"/>
-				<import location="jcore-morpho-syntax-types.xml"/>
-				<import location="jcore-semantics-mention-types.xml"/>
-				<import location="spinfo-frequency-types.xml"/>
-      </imports>
+				<import location="jcore-basic-types.xml" />
+				<import location="jcore-morpho-syntax-types.xml" />
+				<import location="jcore-semantics-mention-types.xml" />
+				<import location="spinfo-frequency-types.xml" />
+			</imports>
 		</typeSystemDescription>
-		<typePriorities/>
-		<fsIndexCollection/>
+		<typePriorities />
+		<fsIndexCollection />
 		<capabilities>
 			<capability>
-				<inputs/>
-				<outputs/>
-				<languagesSupported/>
+				<inputs />
+				<outputs />
+				<languagesSupported />
 			</capability>
 		</capabilities>
 		<operationalProperties>
@@ -33,5 +34,5 @@
 			<outputsNewCASes>false</outputsNewCASes>
 		</operationalProperties>
 	</analysisEngineMetaData>
-	<resourceManagerConfiguration/>
+	<resourceManagerConfiguration />
 </analysisEngineDescription>
