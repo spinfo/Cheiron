@@ -10,19 +10,19 @@ import org.apache.uima.fit.util.JCasUtil;
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.jcas.cas.FSArray;
 
-import Cheiron.Processor.Processor_ImplBase;
+import Cheiron.Processor.Processor;
 import de.julielab.jcore.types.POSTag;
 import de.julielab.jcore.types.Sentence;
 import de.julielab.jcore.types.Token;
 import opennlp.tools.postag.POSModel;
 import opennlp.tools.postag.POSTaggerME;
 
-public class Postagger extends Processor_ImplBase {
+public class Postagger extends Processor {
 
-	private static Map<String, POSTaggerME> detectors = new HashMap<String, POSTaggerME>();
+	private Map<String, POSTaggerME> detectors = new HashMap<String, POSTaggerME>();
 
 	@Override
-	public void processView(JCas view) {
+	protected void processView(JCas view) throws Exception {
 		if (!detectors.containsKey(view.getDocumentLanguage()))
 			return;
 
@@ -73,21 +73,15 @@ public class Postagger extends Processor_ImplBase {
 	}
 
 	@Override
-	public void loadDetector(String lang) {
+	protected void loadDetector(String lang) throws Exception {
 		if (detectors.containsKey(lang))
 			return;
 
 		File model = new File("resources/opennlp/" + lang + "-pos-maxent.bin");
 
-		if (!model.exists()) {
+		if (!model.exists())
 			System.out.println("OpenNLP.Postagger: No model for language '" + lang + "' found, aborting!");
-			return;
-		}
-
-		try {
+		else
 			detectors.put(lang, new POSTaggerME(new POSModel(model)));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 }

@@ -10,7 +10,7 @@ import org.apache.uima.fit.util.JCasUtil;
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.jcas.cas.FSArray;
 
-import Cheiron.Processor.Processor_ImplBase;
+import Cheiron.Processor.Processor;
 import de.julielab.jcore.types.POSTag;
 import de.julielab.jcore.types.Sentence;
 import de.julielab.jcore.types.Token;
@@ -18,15 +18,15 @@ import edu.stanford.nlp.ling.TaggedWord;
 import edu.stanford.nlp.ling.Word;
 import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 
-public class Postagger extends Processor_ImplBase {
+public class Postagger extends Processor {
 
-	private static Map<String, MaxentTagger> detectors = new HashMap<String, MaxentTagger>();
+	private Map<String, MaxentTagger> detectors = new HashMap<String, MaxentTagger>();
 
 	@Override
-	public void processView(JCas view) {
+	protected void processView(JCas view) throws Exception {
 		if (!detectors.containsKey(view.getDocumentLanguage()))
 			return;
-		
+
 		Token token = null;
 		List<Word> tokens = null;
 		List<Token> tokenList = null;
@@ -45,7 +45,6 @@ public class Postagger extends Processor_ImplBase {
 			for (Token t : tokenList)
 				tokens.add(new Word(t.getCoveredText()));
 
-			
 			postags = detectors.get(view.getDocumentLanguage()).tagSentence(tokens);
 
 			for (int i = 0; i < postags.size(); i++) {
@@ -75,21 +74,16 @@ public class Postagger extends Processor_ImplBase {
 	}
 
 	@Override
-	public void loadDetector(String lang) {
+	protected void loadDetector(String lang) throws Exception {
 		if (detectors.containsKey(lang))
 			return;
 
 		File model = new File("resources/stanford/" + lang + ".tagger");
 
-		if (!model.exists()) {
+		if (!model.exists())
 			System.out.println("Stanford.Postagger: No model for language '" + lang + "' found, aborting!");
-			return;
-		}
-
-		try {
+		else
 			detectors.put(lang, new MaxentTagger(model.getPath()));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
+
 }

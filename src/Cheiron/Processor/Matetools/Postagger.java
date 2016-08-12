@@ -22,10 +22,12 @@ import is2.transitionS2a.Parser;
 
 public class Postagger extends JCasAnnotator_ImplBase {
 
-	private static Map<String, Lemmatizer> ldetectors = new HashMap<String, Lemmatizer>();
-	private static Map<String, Parser> pdetectors = new HashMap<String, Parser>();
+	// TODO: Rewrite with UimaFIT
 
-	private void processView(JCas view) {
+	private Map<String, Lemmatizer> ldetectors = new HashMap<String, Lemmatizer>();
+	private Map<String, Parser> pdetectors = new HashMap<String, Parser>();
+
+	private void processView(JCas view) throws Exception {
 		if (ldetectors.containsKey(view.getDocumentLanguage()) || !pdetectors.containsKey(view.getDocumentLanguage()))
 			return;
 
@@ -98,23 +100,18 @@ public class Postagger extends JCasAnnotator_ImplBase {
 		}
 	}
 
-	private void loadDetector(String lang) {
+	private void loadDetector(String lang) throws Exception {
 		if (ldetectors.containsKey(lang) && pdetectors.containsKey(lang))
 			return;
 
 		File lmodel = new File("resources/matetools/" + lang + "-lemma.mdl");
 		File pmodel = new File("resources/matetools/" + lang + "-tagging.mdl");
 
-		if (!lmodel.exists() || !pmodel.exists()) {
+		if (!lmodel.exists() || !pmodel.exists())
 			System.out.println("Matetools.Postagger: No model for language '" + lang + "' found, aborting!");
-			return;
-		}
-
-		try {
+		else {
 			ldetectors.put(lang, new Lemmatizer(lmodel.getPath()));
 			pdetectors.put(lang, new Parser(pmodel.getPath()));
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
 	}
 
@@ -133,8 +130,12 @@ public class Postagger extends JCasAnnotator_ImplBase {
 			if (view.getViewName().equals("_InitialView"))
 				continue;
 
-			loadDetector(view.getDocumentLanguage());
-			processView(view);
+			try {
+				loadDetector(view.getDocumentLanguage());
+				processView(view);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }

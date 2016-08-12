@@ -1,6 +1,6 @@
 .settings/
 bin
-data/*.cas
+data/*.*
 resources/matetools/*.*
 resources/opennlp/*.*
 resources/stanford/*.*

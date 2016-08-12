@@ -14,7 +14,7 @@ import org.apache.uima.cas.Feature;
 import org.apache.uima.jcas.tcas.DocumentAnnotation_Type;
 
 /** 
- * Updated by JCasGen Fri Jul 22 13:16:57 CEST 2016
+ * Updated by JCasGen Fri Aug 12 13:58:22 CEST 2016
  * @generated */
 public class LemmaFrequency_Type extends DocumentAnnotation_Type {
   /** @generated 
@@ -79,7 +79,7 @@ public class LemmaFrequency_Type extends DocumentAnnotation_Type {
     if (lowLevelTypeChecks)
       return ll_cas.ll_getRefArrayValue(ll_cas.ll_getRefValue(addr, casFeatCode_lemma), i, true);
     jcas.checkArrayBounds(ll_cas.ll_getRefValue(addr, casFeatCode_lemma), i);
-	return ll_cas.ll_getRefArrayValue(ll_cas.ll_getRefValue(addr, casFeatCode_lemma), i);
+  return ll_cas.ll_getRefArrayValue(ll_cas.ll_getRefValue(addr, casFeatCode_lemma), i);
   }
    
   /** @generated
@@ -96,30 +96,6 @@ public class LemmaFrequency_Type extends DocumentAnnotation_Type {
     ll_cas.ll_setRefArrayValue(ll_cas.ll_getRefValue(addr, casFeatCode_lemma), i, v);
   }
  
- 
-  /** @generated */
-  final Feature casFeat_frequency;
-  /** @generated */
-  final int     casFeatCode_frequency;
-  /** @generated
-   * @param addr low level Feature Structure reference
-   * @return the feature value 
-   */ 
-  public int getFrequency(int addr) {
-        if (featOkTst && casFeat_frequency == null)
-      jcas.throwFeatMissing("frequency", "de.uk.spinfo.types.LemmaFrequency");
-    return ll_cas.ll_getIntValue(addr, casFeatCode_frequency);
-  }
-  /** @generated
-   * @param addr low level Feature Structure reference
-   * @param v value to set 
-   */    
-  public void setFrequency(int addr, int v) {
-        if (featOkTst && casFeat_frequency == null)
-      jcas.throwFeatMissing("frequency", "de.uk.spinfo.types.LemmaFrequency");
-    ll_cas.ll_setIntValue(addr, casFeatCode_frequency, v);}
-    
-  
  
   /** @generated */
   final Feature casFeat_value;
@@ -144,6 +120,78 @@ public class LemmaFrequency_Type extends DocumentAnnotation_Type {
     ll_cas.ll_setStringValue(addr, casFeatCode_value, v);}
     
   
+ 
+  /** @generated */
+  final Feature casFeat_absoluteFreq;
+  /** @generated */
+  final int     casFeatCode_absoluteFreq;
+  /** @generated
+   * @param addr low level Feature Structure reference
+   * @return the feature value 
+   */ 
+  public int getAbsoluteFreq(int addr) {
+        if (featOkTst && casFeat_absoluteFreq == null)
+      jcas.throwFeatMissing("absoluteFreq", "de.uk.spinfo.types.LemmaFrequency");
+    return ll_cas.ll_getIntValue(addr, casFeatCode_absoluteFreq);
+  }
+  /** @generated
+   * @param addr low level Feature Structure reference
+   * @param v value to set 
+   */    
+  public void setAbsoluteFreq(int addr, int v) {
+        if (featOkTst && casFeat_absoluteFreq == null)
+      jcas.throwFeatMissing("absoluteFreq", "de.uk.spinfo.types.LemmaFrequency");
+    ll_cas.ll_setIntValue(addr, casFeatCode_absoluteFreq, v);}
+    
+  
+ 
+  /** @generated */
+  final Feature casFeat_relativeFreq;
+  /** @generated */
+  final int     casFeatCode_relativeFreq;
+  /** @generated
+   * @param addr low level Feature Structure reference
+   * @return the feature value 
+   */ 
+  public double getRelativeFreq(int addr) {
+        if (featOkTst && casFeat_relativeFreq == null)
+      jcas.throwFeatMissing("relativeFreq", "de.uk.spinfo.types.LemmaFrequency");
+    return ll_cas.ll_getDoubleValue(addr, casFeatCode_relativeFreq);
+  }
+  /** @generated
+   * @param addr low level Feature Structure reference
+   * @param v value to set 
+   */    
+  public void setRelativeFreq(int addr, double v) {
+        if (featOkTst && casFeat_relativeFreq == null)
+      jcas.throwFeatMissing("relativeFreq", "de.uk.spinfo.types.LemmaFrequency");
+    ll_cas.ll_setDoubleValue(addr, casFeatCode_relativeFreq, v);}
+    
+  
+ 
+  /** @generated */
+  final Feature casFeat_componentId;
+  /** @generated */
+  final int     casFeatCode_componentId;
+  /** @generated
+   * @param addr low level Feature Structure reference
+   * @return the feature value 
+   */ 
+  public String getComponentId(int addr) {
+        if (featOkTst && casFeat_componentId == null)
+      jcas.throwFeatMissing("componentId", "de.uk.spinfo.types.LemmaFrequency");
+    return ll_cas.ll_getStringValue(addr, casFeatCode_componentId);
+  }
+  /** @generated
+   * @param addr low level Feature Structure reference
+   * @param v value to set 
+   */    
+  public void setComponentId(int addr, String v) {
+        if (featOkTst && casFeat_componentId == null)
+      jcas.throwFeatMissing("componentId", "de.uk.spinfo.types.LemmaFrequency");
+    ll_cas.ll_setStringValue(addr, casFeatCode_componentId, v);}
+    
+  
 
 
 
@@ -161,12 +209,20 @@ public class LemmaFrequency_Type extends DocumentAnnotation_Type {
     casFeatCode_lemma  = (null == casFeat_lemma) ? JCas.INVALID_FEATURE_CODE : ((FeatureImpl)casFeat_lemma).getCode();
 
  
-    casFeat_frequency = jcas.getRequiredFeatureDE(casType, "frequency", "uima.cas.Integer", featOkTst);
-    casFeatCode_frequency  = (null == casFeat_frequency) ? JCas.INVALID_FEATURE_CODE : ((FeatureImpl)casFeat_frequency).getCode();
-
- 
     casFeat_value = jcas.getRequiredFeatureDE(casType, "value", "uima.cas.String", featOkTst);
     casFeatCode_value  = (null == casFeat_value) ? JCas.INVALID_FEATURE_CODE : ((FeatureImpl)casFeat_value).getCode();
+
+ 
+    casFeat_absoluteFreq = jcas.getRequiredFeatureDE(casType, "absoluteFreq", "uima.cas.Integer", featOkTst);
+    casFeatCode_absoluteFreq  = (null == casFeat_absoluteFreq) ? JCas.INVALID_FEATURE_CODE : ((FeatureImpl)casFeat_absoluteFreq).getCode();
+
+ 
+    casFeat_relativeFreq = jcas.getRequiredFeatureDE(casType, "relativeFreq", "uima.cas.Double", featOkTst);
+    casFeatCode_relativeFreq  = (null == casFeat_relativeFreq) ? JCas.INVALID_FEATURE_CODE : ((FeatureImpl)casFeat_relativeFreq).getCode();
+
+ 
+    casFeat_componentId = jcas.getRequiredFeatureDE(casType, "componentId", "uima.cas.String", featOkTst);
+    casFeatCode_componentId  = (null == casFeat_componentId) ? JCas.INVALID_FEATURE_CODE : ((FeatureImpl)casFeat_componentId).getCode();
 
   }
 }

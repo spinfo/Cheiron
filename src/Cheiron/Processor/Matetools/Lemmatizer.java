@@ -19,9 +19,11 @@ import is2.data.SentenceData09;
 
 public class Lemmatizer extends JCasAnnotator_ImplBase {
 
-	private static Map<String, is2.lemmatizer2.Lemmatizer> detectors = new HashMap<String, is2.lemmatizer2.Lemmatizer>();
+	// TODO: Rewrite with UimaFIT
 
-	private void processView(JCas view) {
+	private Map<String, is2.lemmatizer2.Lemmatizer> detectors = new HashMap<String, is2.lemmatizer2.Lemmatizer>();
+
+	private void processView(JCas view) throws Exception {
 		if (!detectors.containsKey(view.getDocumentLanguage()))
 			return;
 
@@ -89,16 +91,10 @@ public class Lemmatizer extends JCasAnnotator_ImplBase {
 
 		File model = new File("resources/matetools/" + lang + "-lemma.mdl");
 
-		if (!model.exists()) {
+		if (!model.exists())
 			System.out.println("Matetools.Lemmatizer: No model for language '" + lang + "' found, aborting!");
-			return;
-		}
-
-		try {
+		else
 			detectors.put(lang, new is2.lemmatizer2.Lemmatizer(model.getPath()));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 	@Override
@@ -116,8 +112,12 @@ public class Lemmatizer extends JCasAnnotator_ImplBase {
 			if (view.getViewName().equals("_InitialView"))
 				continue;
 
-			loadDetector(view.getDocumentLanguage());
-			processView(view);
+			try {
+				loadDetector(view.getDocumentLanguage());
+				processView(view);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }

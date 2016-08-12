@@ -2,7 +2,7 @@
 <analysisEngineDescription xmlns="http://uima.apache.org/resourceSpecifier">
 	<frameworkImplementation>org.apache.uima.java</frameworkImplementation>
 	<primitive>true</primitive>
-	<annotatorImplementationName>Cheiron.Processor.Custom.Frequenzer
+	<annotatorImplementationName>Cheiron.Processor.Custom.Frequencer
 	</annotatorImplementationName>
 	<analysisEngineMetaData>
 		<name>custom_frequencer</name>
@@ -16,7 +16,7 @@
 				<import location="jcore-basic-types.xml" />
 				<import location="jcore-morpho-syntax-types.xml" />
 				<import location="jcore-semantics-mention-types.xml" />
-				<import location="spinfo-frequency-types.xml" />
+				<import location="spinfo-cheiron-types.xml" />
 			</imports>
 		</typeSystemDescription>
 		<typePriorities />
