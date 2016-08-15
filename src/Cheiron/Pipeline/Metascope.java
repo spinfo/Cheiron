@@ -1,5 +1,7 @@
 package Cheiron.Pipeline;
 
+import java.security.MessageDigest;
+import java.util.Formatter;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
@@ -13,12 +15,28 @@ public class Metascope extends Pipeline {
 
 	protected String pos = null;
 
+	private String hash(String in) throws Exception {
+		Formatter formatter = new Formatter();
+		MessageDigest sha1 = MessageDigest.getInstance("SHA-1");
+
+		for (byte b : sha1.digest(in.getBytes("UTF-8")))
+			formatter.format("%02x", b);
+
+		String out = formatter.toString();
+		formatter.close();
+
+		return out;
+	}
+
 	@Override
 	public Map<String, JCas> process(Map<String, JCas> cases) throws Exception {
 		JCas metacas = engine.newJCas();
 		Aggregator aggregator = new Aggregator();
 		Inverter inverter = new Inverter();
-		String hash = cases.entrySet().stream().map(e -> e.getKey()).collect(Collectors.joining("/"));
+		String clear = cases.entrySet().stream().map(e -> e.getKey()).collect(Collectors.joining("/"));
+		String hash = "metacas-" + hash(clear);
+
+		metacas.setSofaDataURI(hash, "text/metacas-id");
 
 		for (Entry<String, JCas> entry : cases.entrySet())
 			aggregator.process(entry.getValue());
@@ -32,7 +50,7 @@ public class Metascope extends Pipeline {
 		for (Entry<String, JCas> entry : cases.entrySet())
 			inverter.process(entry.getValue());
 
-		cases.put("metacas-" + hash.hashCode(), metacas);
+		cases.put(hash, metacas);
 
 		return cases;
 	}
