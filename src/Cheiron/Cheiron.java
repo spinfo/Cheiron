@@ -3,6 +3,7 @@ package Cheiron;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.lang.invoke.MethodHandles;
@@ -45,6 +46,11 @@ public class Cheiron {
 
 			System.setOut(new PrintStream(devnull));
 			System.setErr(new PrintStream(devnull));
+		} else if (!writelog.equals("true")) {
+			OutputStream logfile = new FileOutputStream(Paths.get(writelog).toFile());
+
+			System.setOut(new PrintStream(logfile));
+			System.setErr(new PrintStream(logfile));
 		}
 
 		run();
@@ -60,7 +66,7 @@ public class Cheiron {
 		if (!file.exists())
 			throw new FileNotFoundException(file.getAbsolutePath());
 
-		configfile = file.getAbsolutePath();
+		configfile = file.getPath();
 		properties.load(new FileInputStream(file));
 	}
 
@@ -74,7 +80,6 @@ public class Cheiron {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	private static void loadConfig() throws Exception {
 		Map<String, Map<String, String>> tree = new HashMap<String, Map<String, String>>();
 
