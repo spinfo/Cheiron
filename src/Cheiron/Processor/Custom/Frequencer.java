@@ -79,7 +79,7 @@ public class Frequencer extends Processor {
 			frequency.setToken(features);
 			frequency.addToIndexes();
 
-			System.out.println("Custom.Frequenzer(Token): " + s + "/" + frequency.getAbsoluteFreq() + "/"
+			System.out.println("Custom.Frequencer(Token): " + s + "/" + frequency.getAbsoluteFreq() + "/"
 					+ frequency.getRelativeFreq());
 		}
 	}
@@ -123,7 +123,7 @@ public class Frequencer extends Processor {
 			frequency.setLemma(features);
 			frequency.addToIndexes();
 
-			System.out.println("Custom.Frequenzer(Lemma): " + s + "/" + frequency.getAbsoluteFreq() + "/"
+			System.out.println("Custom.Frequencer(Lemma): " + s + "/" + frequency.getAbsoluteFreq() + "/"
 					+ frequency.getRelativeFreq());
 		}
 	}
@@ -167,7 +167,7 @@ public class Frequencer extends Processor {
 			frequency.setEntity(features);
 			frequency.addToIndexes();
 
-			System.out.println("Custom.Frequenzer(Entity): " + s + "/" + frequency.getAbsoluteFreq() + "/"
+			System.out.println("Custom.Frequencer(Entity): " + s + "/" + frequency.getAbsoluteFreq() + "/"
 					+ frequency.getRelativeFreq());
 		}
 	}
