@@ -31,3 +31,10 @@ Cheiron.Pipeline.Metascope.pos = 2
 # XMICASFile datatarget
 Cheiron.Datatarget.XMICASFile.run = true
 Cheiron.Datatarget.XMICASFile.path = data/out
+
+# CSVFile datatarget
+Cheiron.Datatarget.CSVFile.run = true
+Cheiron.Datatarget.CSVFile.path = data/out
+Cheiron.Datatarget.CSVFile.filters = metacas
+Cheiron.Datatarget.CSVFile.feature = de.uk.spinfo.types.LemmaTFIDF, de.uk.spinfo.types.EntityTFIDF
+Cheiron.Datatarget.CSVFile.onlytop = 15
