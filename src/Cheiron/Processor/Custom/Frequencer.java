@@ -30,14 +30,9 @@ public class Frequencer extends Processor {
 		JCas view = null;
 		Iterator<JCas> it = cas.getViewIterator();
 
-		while (it.hasNext()) {
-			view = it.next();
-
-			if (view.getViewName().equals("_InitialView"))
-				continue;
-
-			count += JCasUtil.select(view, Token.class).size();
-		}
+		while (it.hasNext())
+			if (!(view = it.next()).getViewName().equals("_InitialView"))
+				count += JCasUtil.select(view, Token.class).size();
 	}
 	
 	private void frequenceToken(JCas view) {
