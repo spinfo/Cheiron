@@ -28,7 +28,8 @@ public class CSVFile extends Datatarget {
 		Iterator<JCas> it = cas.getViewIterator();
 		Class<? extends Annotation> cls = Class.forName(inc).asSubclass(Annotation.class);
 		Type type = JCasUtil.getAnnotationType(cas, cls);
-		List<Feature> feats = type.getFeatures().stream().filter(e -> type.equals(e.getDomain()))
+		List<Feature> feats = type.getFeatures().stream()
+				.filter(e -> (type.equals(e.getDomain()) && !e.getShortName().equals("componentId")))
 				.collect(Collectors.toList());
 		PrintWriter writer = new PrintWriter(new File(new File(path),
 				cas.getSofaDataURI() + "-" + inc.substring(inc.lastIndexOf(".") + 1) + ".csv"));
@@ -49,7 +50,7 @@ public class CSVFile extends Datatarget {
 				writer.println(String.join(", ", line));
 			}
 		}
-		
+
 		writer.close();
 	}
 
