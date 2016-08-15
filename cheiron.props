@@ -28,6 +28,6 @@ Cheiron.Pipeline.Primary.pos = 1
 Cheiron.Pipeline.Metascope.run = true
 Cheiron.Pipeline.Metascope.pos = 2
 
-# Filesystem datatarget
-Cheiron.Datatarget.Filesystem.run = true
-Cheiron.Datatarget.Filesystem.path = data/out
+# XMICASFile datatarget
+Cheiron.Datatarget.XMICASFile.run = true
+Cheiron.Datatarget.XMICASFile.path = data/out

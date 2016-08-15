@@ -1,7 +1,6 @@
 package Cheiron.Datatarget;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.Map;
@@ -11,7 +10,7 @@ import org.apache.commons.vfs2.FileNotFolderException;
 import org.apache.uima.cas.impl.XmiCasSerializer;
 import org.apache.uima.jcas.JCas;
 
-public class Filesystem extends Datatarget {
+public class XMICASFile extends Datatarget {
 
 	protected String path;
 
@@ -19,14 +18,11 @@ public class Filesystem extends Datatarget {
 	public void write(Map<String, JCas> data) throws Exception {
 		File directory = new File(path);
 
-		if (!directory.exists())
-			throw new FileNotFoundException(directory.getAbsolutePath());
-
 		if (!directory.isDirectory())
 			throw new FileNotFolderException(directory.getAbsolutePath());
 
 		for (Entry<String, JCas> e : data.entrySet()) {
-			OutputStream stream = new FileOutputStream(new File(path + e.getKey() + ".cas"));
+			OutputStream stream = new FileOutputStream(new File(directory, e.getKey() + ".cas"));
 			XmiCasSerializer.serialize(e.getValue().getCas(), stream);
 		}
 	}
