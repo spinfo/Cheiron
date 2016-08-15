@@ -32,7 +32,7 @@ public class Metascope extends Pipeline {
 		for (Entry<String, JCas> entry : cases.entrySet())
 			inverter.process(entry.getValue());
 
-		cases.put("metacas_" + hash.hashCode(), metacas);
+		cases.put("metacas-" + hash.hashCode(), metacas);
 
 		return cases;
 	}
