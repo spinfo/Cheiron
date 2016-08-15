@@ -1,9 +1,5 @@
 package Cheiron.Pipeline;
 
-import java.security.MessageDigest;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
@@ -27,31 +23,11 @@ public class Metascope extends Pipeline {
 		for (Entry<String, JCas> entry : cases.entrySet())
 			aggregator.process(entry.getValue());
 
-		List<String> pids = (ArrayList<String>) aggregator.get("pids");
-		Map<String, Map<String, Double>> tf = (HashMap<String, Map<String, Double>>) aggregator.get("tokenFreq");
-		Map<String, Map<String, Double>> lf = (HashMap<String, Map<String, Double>>) aggregator.get("lemmaFreq");
-		Map<String, Map<String, Double>> ef = (HashMap<String, Map<String, Double>>) aggregator.get("entityFreq");
-		Map<String, Double> invertedToken = new HashMap<String, Double>();
-		Map<String, Double> invertedLemma = new HashMap<String, Double>();
-		Map<String, Double> invertedEntity = new HashMap<String, Double>();
-
-		for (Entry<String, Map<String, Double>> t : tf.entrySet())
-			invertedToken.put(t.getKey(), (double) Math.log((double) pids.size() / t.getValue().size()));
-
-		for (Entry<String, Map<String, Double>> t : lf.entrySet())
-			invertedLemma.put(t.getKey(), (double) Math.log((double) pids.size() / t.getValue().size()));
-
-		for (Entry<String, Map<String, Double>> t : ef.entrySet())
-			invertedEntity.put(t.getKey(), (double) Math.log((double) pids.size() / t.getValue().size()));
-
 		inverter.set("metacas", metacas);
 		inverter.set("pids", aggregator.get("pids"));
 		inverter.set("tokenFreq", aggregator.get("tokenFreq"));
 		inverter.set("lemmaFreq", aggregator.get("lemmaFreq"));
 		inverter.set("entityFreq", aggregator.get("entityFreq"));
-		inverter.set("invertedToken", invertedToken);
-		inverter.set("invertedLemma", invertedLemma);
-		inverter.set("invertedEntity", invertedEntity);
 
 		for (Entry<String, JCas> entry : cases.entrySet())
 			inverter.process(entry.getValue());

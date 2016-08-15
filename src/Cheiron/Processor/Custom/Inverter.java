@@ -1,6 +1,7 @@
 package Cheiron.Processor.Custom;
 
 import java.util.AbstractMap.SimpleEntry;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,85 +28,93 @@ public class Inverter extends Processor {
 	public Map<String, Map<String, Double>> lemmaFreq;
 	public Map<String, Map<String, Double>> entityFreq;
 
-	public Map<String, Double> invertedToken;
-	public Map<String, Double> invertedLemma;
-	public Map<String, Double> invertedEntity;
+	private void wieghtToken(JCas view, JCas metacas) throws Exception {
+		Map<String, Double> idfWeight = new HashMap<String, Double>();
+		Map<String, Entry<Double, Double>> tfidfWeight = new HashMap<String, Entry<Double, Double>>();
 
-	private void aggregateToken(JCas view, JCas cas) throws Exception {
-		Map<String, Entry<Double, Double>> inverse = new LinkedHashMap<String, Entry<Double, Double>>();
+		for (Entry<String, Map<String, Double>> t : tokenFreq.entrySet())
+			idfWeight.put(t.getKey(), (double) Math.log((double) pids.size() / t.getValue().size()));
 
 		for (TokenFrequency t : JCasUtil.select(view, TokenFrequency.class))
-			inverse.put(t.getValue(), new SimpleEntry<Double, Double>(t.getRelativeFreq(),
-					t.getRelativeFreq() * invertedToken.get(t.getValue())));
+			tfidfWeight.put(t.getValue(), new SimpleEntry<Double, Double>(t.getRelativeFreq(),
+					t.getRelativeFreq() * idfWeight.get(t.getValue())));
 
-		inverse = inverse.entrySet().stream()
-				.sorted((x, y) -> Double.compare(y.getValue().getValue(), x.getValue().getValue()))
+		tfidfWeight = tfidfWeight.entrySet().stream()
+				.sorted((k, v) -> Double.compare(v.getValue().getValue(), k.getValue().getValue()))
 				.collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue(), (x, y) -> {
 					return null;
 				}, LinkedHashMap::new));
 
-		for (Entry<String, Entry<Double, Double>> e : inverse.entrySet()) {
-			TokenTFIDF tfidf = new TokenTFIDF(cas);
+		for (Entry<String, Entry<Double, Double>> e : tfidfWeight.entrySet()) {
+			TokenTFIDF tfidf = new TokenTFIDF(metacas);
 			tfidf.setValue(e.getKey());
 			tfidf.setTfWeight(e.getValue().getKey());
 			tfidf.setTfidfWeight(e.getValue().getValue());
 			tfidf.setComponentId("Custom.Inverter");
 			tfidf.addToIndexes();
 
-			System.out.println("Custom.Inverter(Token): [" + cas.getViewName() + "] " + e.getKey() + "/"
-					+ e.getValue().getKey() + "/" + e.getValue().getValue());
+			System.out.println("Custom.Inverter(Token): [" + metacas.getViewName() + "] " + e.getValue().getKey() + "/"
+					+ e.getValue().getValue() + "/" + e.getKey());
 		}
 	}
 
-	private void aggregateLemma(JCas view, JCas cas) throws Exception {
-		Map<String, Entry<Double, Double>> inverse = new LinkedHashMap<String, Entry<Double, Double>>();
+	private void weightLemma(JCas view, JCas metacas) throws Exception {
+		Map<String, Double> idfWeight = new HashMap<String, Double>();
+		Map<String, Entry<Double, Double>> tfidfWeight = new HashMap<String, Entry<Double, Double>>();
+
+		for (Entry<String, Map<String, Double>> t : lemmaFreq.entrySet())
+			idfWeight.put(t.getKey(), (double) Math.log((double) pids.size() / t.getValue().size()));
 
 		for (LemmaFrequency l : JCasUtil.select(view, LemmaFrequency.class))
-			inverse.put(l.getValue(), new SimpleEntry<Double, Double>(l.getRelativeFreq(),
-					l.getRelativeFreq() * invertedLemma.get(l.getValue())));
+			tfidfWeight.put(l.getValue(), new SimpleEntry<Double, Double>(l.getRelativeFreq(),
+					l.getRelativeFreq() * idfWeight.get(l.getValue())));
 
-		inverse = inverse.entrySet().stream()
-				.sorted((x, y) -> Double.compare(y.getValue().getValue(), x.getValue().getValue()))
+		tfidfWeight = tfidfWeight.entrySet().stream()
+				.sorted((k, v) -> Double.compare(v.getValue().getValue(), k.getValue().getValue()))
 				.collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue(), (x, y) -> {
 					return null;
 				}, LinkedHashMap::new));
 
-		for (Entry<String, Entry<Double, Double>> e : inverse.entrySet()) {
-			LemmaTFIDF tfidf = new LemmaTFIDF(cas);
+		for (Entry<String, Entry<Double, Double>> e : tfidfWeight.entrySet()) {
+			LemmaTFIDF tfidf = new LemmaTFIDF(metacas);
 			tfidf.setValue(e.getKey());
 			tfidf.setTfWeight(e.getValue().getKey());
 			tfidf.setTfidfWeight(e.getValue().getValue());
 			tfidf.setComponentId("Custom.Inverter");
 			tfidf.addToIndexes();
 
-			System.out.println("Custom.Inverter(Lemma): [" + cas.getViewName() + "] " + e.getKey() + "/"
-					+ e.getValue().getKey() + "/" + e.getValue().getValue());
+			System.out.println("Custom.Inverter(Lemma): [" + metacas.getViewName() + "] " + e.getValue().getKey() + "/"
+					+ e.getValue().getValue() + "/" + e.getKey());
 		}
 	}
 
-	private void aggregateEntity(JCas view, JCas cas) throws Exception {
-		Map<String, Entry<Double, Double>> inverse = new LinkedHashMap<String, Entry<Double, Double>>();
+	private void weightEntity(JCas view, JCas metacas) throws Exception {
+		Map<String, Double> idfWeight = new HashMap<String, Double>();
+		Map<String, Entry<Double, Double>> tfidfWeight = new HashMap<String, Entry<Double, Double>>();
+
+		for (Entry<String, Map<String, Double>> t : entityFreq.entrySet())
+			idfWeight.put(t.getKey(), (double) Math.log((double) pids.size() / t.getValue().size()));
 
 		for (EntityFrequency e : JCasUtil.select(view, EntityFrequency.class))
-			inverse.put(e.getValue(), new SimpleEntry<Double, Double>(e.getRelativeFreq(),
-					e.getRelativeFreq() * invertedEntity.get(e.getValue())));
+			tfidfWeight.put(e.getValue(), new SimpleEntry<Double, Double>(e.getRelativeFreq(),
+					e.getRelativeFreq() * idfWeight.get(e.getValue())));
 
-		inverse = inverse.entrySet().stream()
-				.sorted((x, y) -> Double.compare(y.getValue().getValue(), x.getValue().getValue()))
+		tfidfWeight = tfidfWeight.entrySet().stream()
+				.sorted((k, v) -> Double.compare(v.getValue().getValue(), k.getValue().getValue()))
 				.collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue(), (x, y) -> {
 					return null;
 				}, LinkedHashMap::new));
 
-		for (Entry<String, Entry<Double, Double>> e : inverse.entrySet()) {
-			EntityTFIDF tfidf = new EntityTFIDF(cas);
+		for (Entry<String, Entry<Double, Double>> e : tfidfWeight.entrySet()) {
+			EntityTFIDF tfidf = new EntityTFIDF(metacas);
 			tfidf.setValue(e.getKey());
 			tfidf.setTfWeight(e.getValue().getKey());
 			tfidf.setTfidfWeight(e.getValue().getValue());
 			tfidf.setComponentId("Custom.Inverter");
 			tfidf.addToIndexes();
 
-			System.out.println("Custom.Inverter(Entity): [" + cas.getViewName() + "] " + e.getKey() + "/"
-					+ e.getValue().getKey() + "/" + e.getValue().getValue());
+			System.out.println("Custom.Inverter(Entity): [" + metacas.getViewName() + "] " + e.getValue().getKey() + "/"
+					+ e.getValue().getValue() + "/" + e.getKey());
 		}
 	}
 
@@ -113,9 +122,9 @@ public class Inverter extends Processor {
 	protected void processView(JCas view) throws Exception {
 		String pid = view.getView("_InitialView").getSofaDataURI();
 
-		aggregateToken(view, JCasUtil.getView(metacas, pid, true));
-		aggregateLemma(view, JCasUtil.getView(metacas, pid, true));
-		aggregateEntity(view, JCasUtil.getView(metacas, pid, true));
+		wieghtToken(view, JCasUtil.getView(metacas, pid, true));
+		weightLemma(view, JCasUtil.getView(metacas, pid, true));
+		weightEntity(view, JCasUtil.getView(metacas, pid, true));
 	}
 
 	@Override
