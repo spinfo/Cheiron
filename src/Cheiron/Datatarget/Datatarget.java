@@ -1,11 +1,10 @@
 package Cheiron.Datatarget;
 
-import java.awt.Component;
 import java.util.Map;
 
 import org.apache.uima.jcas.JCas;
 
-public abstract class Datatarget extends Component {
+public abstract class Datatarget {
 
 	public abstract void write(Map<String, JCas> data) throws Exception;
 
