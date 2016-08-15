@@ -4,7 +4,6 @@ import java.util.Iterator;
 
 import org.apache.uima.analysis_component.JCasAnnotator_ImplBase;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
-import org.apache.uima.cas.impl.BooleanArrayFSImpl;
 import org.apache.uima.jcas.JCas;
 
 public abstract class Processor extends JCasAnnotator_ImplBase {
