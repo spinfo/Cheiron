@@ -45,16 +45,19 @@ public class Inverter extends Processor {
 					return null;
 				}, LinkedHashMap::new));
 
+		int counter = 0;
 		for (Entry<String, Entry<Double, Double>> e : tfidfWeight.entrySet()) {
 			TokenTFIDF tfidf = new TokenTFIDF(metacas);
+			tfidf.setBegin(counter);
+			tfidf.setEnd(counter++);
 			tfidf.setValue(e.getKey());
 			tfidf.setTfWeight(e.getValue().getKey());
 			tfidf.setTfidfWeight(e.getValue().getValue());
 			tfidf.setComponentId("Custom.Inverter");
 			tfidf.addToIndexes();
 
-			System.out.println("Custom.Inverter(Token): [" + metacas.getViewName() + "] " + e.getValue().getKey() + "/"
-					+ e.getValue().getValue() + "/" + e.getKey());
+			System.out.println("Custom.Inverter(Token): [" + metacas.getViewName() + "] " + e.getKey() + "/"
+					+ e.getValue().getKey() + "/" + e.getValue().getValue());
 		}
 	}
 
@@ -75,16 +78,19 @@ public class Inverter extends Processor {
 					return null;
 				}, LinkedHashMap::new));
 
+		int counter = 0;
 		for (Entry<String, Entry<Double, Double>> e : tfidfWeight.entrySet()) {
 			LemmaTFIDF tfidf = new LemmaTFIDF(metacas);
+			tfidf.setBegin(counter);
+			tfidf.setEnd(counter++);
 			tfidf.setValue(e.getKey());
 			tfidf.setTfWeight(e.getValue().getKey());
 			tfidf.setTfidfWeight(e.getValue().getValue());
 			tfidf.setComponentId("Custom.Inverter");
 			tfidf.addToIndexes();
 
-			System.out.println("Custom.Inverter(Lemma): [" + metacas.getViewName() + "] " + e.getValue().getKey() + "/"
-					+ e.getValue().getValue() + "/" + e.getKey());
+			System.out.println("Custom.Inverter(Lemma): [" + metacas.getViewName() + "] " + e.getKey() + "/"
+					+ e.getValue().getKey() + "/" + e.getValue().getValue());
 		}
 	}
 
@@ -105,16 +111,19 @@ public class Inverter extends Processor {
 					return null;
 				}, LinkedHashMap::new));
 
+		int counter = 0;
 		for (Entry<String, Entry<Double, Double>> e : tfidfWeight.entrySet()) {
 			EntityTFIDF tfidf = new EntityTFIDF(metacas);
+			tfidf.setBegin(counter);
+			tfidf.setEnd(counter++);
 			tfidf.setValue(e.getKey());
 			tfidf.setTfWeight(e.getValue().getKey());
 			tfidf.setTfidfWeight(e.getValue().getValue());
 			tfidf.setComponentId("Custom.Inverter");
 			tfidf.addToIndexes();
 
-			System.out.println("Custom.Inverter(Entity): [" + metacas.getViewName() + "] " + e.getValue().getKey() + "/"
-					+ e.getValue().getValue() + "/" + e.getKey());
+			System.out.println("Custom.Inverter(Entity): [" + metacas.getViewName() + "] " + e.getKey() + "/"
+					+ e.getValue().getKey() + "/" + e.getValue().getValue());
 		}
 	}
 
