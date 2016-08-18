@@ -15,7 +15,9 @@ import de.uk.spinfo.types.TokenFrequency;
 
 public class Aggregator extends Processor {
 
-	public List<String> pids = new ArrayList<String>();
+	private String language;
+
+	public Map<String, List<String>> pids = new HashMap<String, List<String>>();
 	public Map<String, Map<String, Double>> tokenFreq = new HashMap<String, Map<String, Double>>();
 	public Map<String, Map<String, Double>> lemmaFreq = new HashMap<String, Map<String, Double>>();
 	public Map<String, Map<String, Double>> entityFreq = new HashMap<String, Map<String, Double>>();
@@ -64,12 +66,15 @@ public class Aggregator extends Processor {
 		aggregateLemma(view, pid);
 		aggregateEntity(view, pid);
 
-		pids.add(pid);
+		pids.get(language).add(pid);
 	}
 
 	@Override
 	protected void loadDetector(String lang) throws Exception {
-		return;
+		language = lang;
+		
+		if (!pids.containsKey(lang))
+			pids.put(lang, new ArrayList<String>());
 	}
 
 }

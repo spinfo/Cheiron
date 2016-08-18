@@ -21,8 +21,10 @@ import de.uk.spinfo.types.TokenTFIDF;
 
 public class Inverter extends Processor {
 
+	private String language;
+	
 	public JCas metacas;
-	public List<String> pids;
+	public Map<String, List<String>> pids = new HashMap<String, List<String>>();
 
 	public Map<String, Map<String, Double>> tokenFreq;
 	public Map<String, Map<String, Double>> lemmaFreq;
@@ -33,7 +35,7 @@ public class Inverter extends Processor {
 		Map<String, Entry<Double, Double>> tfidfWeight = new HashMap<String, Entry<Double, Double>>();
 
 		for (Entry<String, Map<String, Double>> t : tokenFreq.entrySet())
-			idfWeight.put(t.getKey(), (double) Math.log((double) pids.size() / t.getValue().size()));
+			idfWeight.put(t.getKey(), (double) Math.log((double) pids.get(language).size() / t.getValue().size()));
 
 		for (TokenFrequency t : JCasUtil.select(view, TokenFrequency.class))
 			tfidfWeight.put(t.getValue(), new SimpleEntry<Double, Double>(t.getRelativeFreq(),
@@ -66,7 +68,7 @@ public class Inverter extends Processor {
 		Map<String, Entry<Double, Double>> tfidfWeight = new HashMap<String, Entry<Double, Double>>();
 
 		for (Entry<String, Map<String, Double>> t : lemmaFreq.entrySet())
-			idfWeight.put(t.getKey(), (double) Math.log((double) pids.size() / t.getValue().size()));
+			idfWeight.put(t.getKey(), (double) Math.log((double) pids.get(language).size() / t.getValue().size()));
 
 		for (LemmaFrequency l : JCasUtil.select(view, LemmaFrequency.class))
 			tfidfWeight.put(l.getValue(), new SimpleEntry<Double, Double>(l.getRelativeFreq(),
@@ -99,7 +101,7 @@ public class Inverter extends Processor {
 		Map<String, Entry<Double, Double>> tfidfWeight = new HashMap<String, Entry<Double, Double>>();
 
 		for (Entry<String, Map<String, Double>> t : entityFreq.entrySet())
-			idfWeight.put(t.getKey(), (double) Math.log((double) pids.size() / t.getValue().size()));
+			idfWeight.put(t.getKey(), (double) Math.log((double) pids.get(language).size() / t.getValue().size()));
 
 		for (EntityFrequency e : JCasUtil.select(view, EntityFrequency.class))
 			tfidfWeight.put(e.getValue(), new SimpleEntry<Double, Double>(e.getRelativeFreq(),
@@ -138,7 +140,7 @@ public class Inverter extends Processor {
 
 	@Override
 	protected void loadDetector(String lang) throws Exception {
-		return;
+		language = lang;
 	}
 
 }
