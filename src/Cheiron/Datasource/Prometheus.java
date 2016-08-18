@@ -1,13 +1,12 @@
-package Cheiron;
+package Cheiron.Datasource;
 
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
-import java.util.ArrayList;
 import java.util.Base64;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -15,20 +14,15 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
-public class Prometheus {
+public class Prometheus extends Datasource {
 
-	private String api = "http://prometheus.uni-koeln.de/pandora/api/xml/search/search";
-	private String usr = null;
-	private String key = null;
+	protected String api, usr, key;
+	protected String field, param, limit;
+	protected String filters, sources, logical, orderby;
 
-	public Prometheus(String api, String usr, String key) {
-		this.api = api;
-		this.usr = usr;
-		this.key = key;
-	}
-
-	public List<Map<String, String>> getRecords(String field, String param, String limit) throws Exception {
-		List<Map<String, String>> records = new ArrayList<Map<String, String>>();
+	@Override
+	public Map<String, Map<String, String>> getData() throws Exception {
+		Map<String, Map<String, String>> data = new HashMap<String, Map<String, String>>();
 
 		String clearAuth = usr + ":" + key;
 		String basicAuth = "Basic " + new String(Base64.getEncoder().encodeToString(clearAuth.getBytes()));
@@ -41,31 +35,39 @@ public class Prometheus {
 		URLConnection connection = url.openConnection();
 		connection.setRequestProperty("authorization", basicAuth);
 
-		System.out.println("Prometheus.getRecords(): " + url.toString());
+		System.out.println("Datasource.Prometheus: " + url.toString());
 
 		DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 		Document doc = builder.parse(connection.getInputStream());
 		NodeList results = doc.getElementsByTagName("result");
 
-		String key;
-		String value;
-		NodeList result;
-		Map<String, String> record;
-
 		for (int i = 0; i < results.getLength(); i++) {
-			result = results.item(i).getChildNodes();
-			record = new HashMap<String, String>();
+			String pid = UUID.randomUUID().toString();
+			Map<String, String> record = new HashMap<String, String>();
+			NodeList result = results.item(i).getChildNodes();
 
 			for (int j = 0; j < result.getLength(); j++) {
-				key = result.item(j).getNodeName();
-				value = result.item(j).getTextContent();
+				String key = result.item(j).getNodeName();
+				String val = result.item(j).getTextContent();
 
-				record.put(key, value);
+				if (val.isEmpty()) {
+					continue;
+				} else if (key.equals("pid")) {
+					pid = val;
+				} else if (!filters.isEmpty() && !filters.contains(key)) {
+					continue;
+				} else {
+					record.put(key, val);
+				}
 			}
 
-			records.add(record);
+			if (record.isEmpty())
+				continue;
+
+			data.put(pid, record);
 		}
 
-		return records;
+		return data;
 	}
+
 }

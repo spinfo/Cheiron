@@ -13,8 +13,8 @@ import de.julielab.jcore.types.Lemma;
 
 
 /** 
- * Updated by JCasGen Fri Jul 22 13:16:57 CEST 2016
- * XML source: /home/phil/Documents/Spinfo/Prometheus/Cheiron/desc/spinfo-frequency-types.xml
+ * Updated by JCasGen Fri Aug 12 13:58:22 CEST 2016
+ * XML source: /home/phil/Documents/Spinfo/Prometheus/Cheiron/desc/spinfo-cheiron-types.xml
  * @generated */
 public class LemmaFrequency extends DocumentAnnotation {
   /** @generated
@@ -123,28 +123,6 @@ public class LemmaFrequency extends DocumentAnnotation {
    
     
   //*--------------*
-  //* Feature: frequency
-
-  /** getter for frequency - gets 
-   * @generated
-   * @return value of the feature 
-   */
-  public int getFrequency() {
-    if (LemmaFrequency_Type.featOkTst && ((LemmaFrequency_Type)jcasType).casFeat_frequency == null)
-      jcasType.jcas.throwFeatMissing("frequency", "de.uk.spinfo.types.LemmaFrequency");
-    return jcasType.ll_cas.ll_getIntValue(addr, ((LemmaFrequency_Type)jcasType).casFeatCode_frequency);}
-    
-  /** setter for frequency - sets  
-   * @generated
-   * @param v value to set into the feature 
-   */
-  public void setFrequency(int v) {
-    if (LemmaFrequency_Type.featOkTst && ((LemmaFrequency_Type)jcasType).casFeat_frequency == null)
-      jcasType.jcas.throwFeatMissing("frequency", "de.uk.spinfo.types.LemmaFrequency");
-    jcasType.ll_cas.ll_setIntValue(addr, ((LemmaFrequency_Type)jcasType).casFeatCode_frequency, v);}    
-   
-    
-  //*--------------*
   //* Feature: value
 
   /** getter for value - gets 
@@ -164,6 +142,72 @@ public class LemmaFrequency extends DocumentAnnotation {
     if (LemmaFrequency_Type.featOkTst && ((LemmaFrequency_Type)jcasType).casFeat_value == null)
       jcasType.jcas.throwFeatMissing("value", "de.uk.spinfo.types.LemmaFrequency");
     jcasType.ll_cas.ll_setStringValue(addr, ((LemmaFrequency_Type)jcasType).casFeatCode_value, v);}    
+   
+    
+  //*--------------*
+  //* Feature: absoluteFreq
+
+  /** getter for absoluteFreq - gets 
+   * @generated
+   * @return value of the feature 
+   */
+  public int getAbsoluteFreq() {
+    if (LemmaFrequency_Type.featOkTst && ((LemmaFrequency_Type)jcasType).casFeat_absoluteFreq == null)
+      jcasType.jcas.throwFeatMissing("absoluteFreq", "de.uk.spinfo.types.LemmaFrequency");
+    return jcasType.ll_cas.ll_getIntValue(addr, ((LemmaFrequency_Type)jcasType).casFeatCode_absoluteFreq);}
+    
+  /** setter for absoluteFreq - sets  
+   * @generated
+   * @param v value to set into the feature 
+   */
+  public void setAbsoluteFreq(int v) {
+    if (LemmaFrequency_Type.featOkTst && ((LemmaFrequency_Type)jcasType).casFeat_absoluteFreq == null)
+      jcasType.jcas.throwFeatMissing("absoluteFreq", "de.uk.spinfo.types.LemmaFrequency");
+    jcasType.ll_cas.ll_setIntValue(addr, ((LemmaFrequency_Type)jcasType).casFeatCode_absoluteFreq, v);}    
+   
+    
+  //*--------------*
+  //* Feature: relativeFreq
+
+  /** getter for relativeFreq - gets 
+   * @generated
+   * @return value of the feature 
+   */
+  public double getRelativeFreq() {
+    if (LemmaFrequency_Type.featOkTst && ((LemmaFrequency_Type)jcasType).casFeat_relativeFreq == null)
+      jcasType.jcas.throwFeatMissing("relativeFreq", "de.uk.spinfo.types.LemmaFrequency");
+    return jcasType.ll_cas.ll_getDoubleValue(addr, ((LemmaFrequency_Type)jcasType).casFeatCode_relativeFreq);}
+    
+  /** setter for relativeFreq - sets  
+   * @generated
+   * @param v value to set into the feature 
+   */
+  public void setRelativeFreq(double v) {
+    if (LemmaFrequency_Type.featOkTst && ((LemmaFrequency_Type)jcasType).casFeat_relativeFreq == null)
+      jcasType.jcas.throwFeatMissing("relativeFreq", "de.uk.spinfo.types.LemmaFrequency");
+    jcasType.ll_cas.ll_setDoubleValue(addr, ((LemmaFrequency_Type)jcasType).casFeatCode_relativeFreq, v);}    
+   
+    
+  //*--------------*
+  //* Feature: componentId
+
+  /** getter for componentId - gets 
+   * @generated
+   * @return value of the feature 
+   */
+  public String getComponentId() {
+    if (LemmaFrequency_Type.featOkTst && ((LemmaFrequency_Type)jcasType).casFeat_componentId == null)
+      jcasType.jcas.throwFeatMissing("componentId", "de.uk.spinfo.types.LemmaFrequency");
+    return jcasType.ll_cas.ll_getStringValue(addr, ((LemmaFrequency_Type)jcasType).casFeatCode_componentId);}
+    
+  /** setter for componentId - sets  
+   * @generated
+   * @param v value to set into the feature 
+   */
+  public void setComponentId(String v) {
+    if (LemmaFrequency_Type.featOkTst && ((LemmaFrequency_Type)jcasType).casFeat_componentId == null)
+      jcasType.jcas.throwFeatMissing("componentId", "de.uk.spinfo.types.LemmaFrequency");
+    jcasType.ll_cas.ll_setStringValue(addr, ((LemmaFrequency_Type)jcasType).casFeatCode_componentId, v);}    
   }
 
     

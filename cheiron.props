@@ -1,0 +1,40 @@
+# Cheiron
+Cheiron.Cheiron.writelog = true
+Cheiron.Cheiron.configfile = cheiron.props
+
+# Filesystem datasource
+Cheiron.Datasource.Filesystem.run = false
+Cheiron.Datasource.Filesystem.path = data/in
+Cheiron.Datasource.Filesystem.filters = description
+
+# Prometheus datasource
+Cheiron.Datasource.Prometheus.run = true
+Cheiron.Datasource.Prometheus.api = http://prometheus.uni-koeln.de/pandora/api/xml/search/search
+Cheiron.Datasource.Prometheus.usr = username
+Cheiron.Datasource.Prometheus.key = password
+Cheiron.Datasource.Prometheus.field = all
+Cheiron.Datasource.Prometheus.param = mysearchterm
+Cheiron.Datasource.Prometheus.limit = 50
+Cheiron.Datasource.Prometheus.filters = description
+Cheiron.Datasource.Prometheus.sources = 
+Cheiron.Datasource.Prometheus.logical = and
+Cheiron.Datasource.Prometheus.orderby = relevance
+
+# Primary pipeline
+Cheiron.Pipeline.Primary.run = true
+Cheiron.Pipeline.Primary.pos = 1
+
+# Metascope pipeline
+Cheiron.Pipeline.Metascope.run = true
+Cheiron.Pipeline.Metascope.pos = 2
+
+# XMICASFile datatarget
+Cheiron.Datatarget.XMICASFile.run = true
+Cheiron.Datatarget.XMICASFile.path = data/out
+
+# CSVFile datatarget
+Cheiron.Datatarget.CSVFile.run = true
+Cheiron.Datatarget.CSVFile.path = data/out
+Cheiron.Datatarget.CSVFile.filters = metacas
+Cheiron.Datatarget.CSVFile.feature = de.uk.spinfo.types.LemmaTFIDF, de.uk.spinfo.types.EntityTFIDF
+Cheiron.Datatarget.CSVFile.onlytop = 15

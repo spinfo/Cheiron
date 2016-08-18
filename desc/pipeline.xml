@@ -3,17 +3,14 @@
 	<frameworkImplementation>org.apache.uima.java</frameworkImplementation>
 	<primitive>false</primitive>
 	<delegateAnalysisEngineSpecifiers>
-		<delegateAnalysisEngine key="tika_langdetector">
-			<import name="desc.tika_langdetector" />
+		<delegateAnalysisEngine key="custom_aggregator">
+			<import name="desc.custom_aggregator" />
 		</delegateAnalysisEngine>
-		<delegateAnalysisEngine key="opennlp_sentencer">
-			<import name="desc.opennlp_sentencer" />
+		<delegateAnalysisEngine key="custom_frequencer">
+			<import name="desc.custom_frequencer" />
 		</delegateAnalysisEngine>
-		<delegateAnalysisEngine key="opennlp_tokenizer">
-			<import name="desc.opennlp_tokenizer" />
-		</delegateAnalysisEngine>
-		<delegateAnalysisEngine key="opennlp_postagger">
-			<import name="desc.opennlp_postagger" />
+		<delegateAnalysisEngine key="custom_inverter">
+			<import name="desc.custom_inverter" />
 		</delegateAnalysisEngine>
 		<delegateAnalysisEngine key="matetools_lemmatizer">
 			<import name="desc.matetools_lemmatizer" />
@@ -21,14 +18,23 @@
 		<delegateAnalysisEngine key="matetools_postagger">
 			<import name="desc.matetools_postagger" />
 		</delegateAnalysisEngine>
-		<delegateAnalysisEngine key="custom_frequencer">
-			<import name="desc.custom_frequencer" />
+		<delegateAnalysisEngine key="opennlp_postagger">
+			<import name="desc.opennlp_postagger" />
+		</delegateAnalysisEngine>
+		<delegateAnalysisEngine key="opennlp_sentencer">
+			<import name="desc.opennlp_sentencer" />
+		</delegateAnalysisEngine>
+		<delegateAnalysisEngine key="opennlp_tokenizer">
+			<import name="desc.opennlp_tokenizer" />
+		</delegateAnalysisEngine>
+		<delegateAnalysisEngine key="stanford_entityrecognizer">
+			<import name="desc.stanford_entityrecognizer" />
 		</delegateAnalysisEngine>
 		<delegateAnalysisEngine key="stanford_postagger">
 			<import name="desc.stanford_postagger" />
 		</delegateAnalysisEngine>
-		<delegateAnalysisEngine key="stanford_entityrecognizer">
-			<import name="desc.stanford_entityrecognizer" />
+		<delegateAnalysisEngine key="tika_langdetector">
+			<import name="desc.tika_langdetector" />
 		</delegateAnalysisEngine>
 	</delegateAnalysisEngineSpecifiers>
 	<analysisEngineMetaData>
@@ -40,14 +46,6 @@
 		<configurationParameterSettings />
 		<flowConstraints>
 			<fixedFlow>
-				<node>tika_langdetector</node>
-				<node>opennlp_sentencer</node>
-				<node>opennlp_tokenizer</node>
-				<node>matetools_lemmatizer</node>
-				<node>stanford_postagger</node>
-				<node>stanford_entityrecognizer</node>
-				<!--<node>matetools_postagger</node> -->
-				<node>custom_frequencer</node>
 			</fixedFlow>
 		</flowConstraints>
 		<typePriorities />

@@ -7,19 +7,19 @@ import java.util.Map;
 import org.apache.uima.fit.util.JCasUtil;
 import org.apache.uima.jcas.JCas;
 
-import Cheiron.Processor.Processor_ImplBase;
+import Cheiron.Processor.Processor;
 import de.julielab.jcore.types.Sentence;
 import de.julielab.jcore.types.Token;
 import opennlp.tools.tokenize.TokenizerME;
 import opennlp.tools.tokenize.TokenizerModel;
 import opennlp.tools.util.Span;
 
-public class Tokenizer extends Processor_ImplBase {
+public class Tokenizer extends Processor {
 
-	private static Map<String, TokenizerME> detectors = new HashMap<String, TokenizerME>();
+	private Map<String, TokenizerME> detectors = new HashMap<String, TokenizerME>();
 
 	@Override
-	public void processView(JCas view) {
+	protected void processView(JCas view) throws Exception {
 		if (!detectors.containsKey(view.getDocumentLanguage()))
 			return;
 
@@ -39,21 +39,15 @@ public class Tokenizer extends Processor_ImplBase {
 	}
 
 	@Override
-	public void loadDetector(String lang) {
+	protected void loadDetector(String lang) throws Exception {
 		if (detectors.containsKey(lang))
 			return;
 
 		File model = new File("resources/opennlp/" + lang + "-token.bin");
 
-		if (!model.exists()) {
+		if (!model.exists())
 			System.out.println("OpenNLP.Tokenizer: No model for language '" + lang + "' found, aborting!");
-			return;
-		}
-
-		try {
+		else
 			detectors.put(lang, new TokenizerME(new TokenizerModel(model)));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 }

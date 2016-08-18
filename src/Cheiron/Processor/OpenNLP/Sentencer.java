@@ -6,18 +6,18 @@ import java.util.Map;
 
 import org.apache.uima.jcas.JCas;
 
-import Cheiron.Processor.Processor_ImplBase;
+import Cheiron.Processor.Processor;
 import de.julielab.jcore.types.Sentence;
 import opennlp.tools.sentdetect.SentenceDetectorME;
 import opennlp.tools.sentdetect.SentenceModel;
 import opennlp.tools.util.Span;
 
-public class Sentencer extends Processor_ImplBase {
+public class Sentencer extends Processor {
 
-	private static Map<String, SentenceDetectorME> detectors = new HashMap<String, SentenceDetectorME>();
+	private Map<String, SentenceDetectorME> detectors = new HashMap<String, SentenceDetectorME>();
 
 	@Override
-	public void processView(JCas view) {
+	protected void processView(JCas view) throws Exception {
 		if (!detectors.containsKey(view.getDocumentLanguage()))
 			return;
 
@@ -35,21 +35,15 @@ public class Sentencer extends Processor_ImplBase {
 	}
 
 	@Override
-	public void loadDetector(String lang) {
+	protected void loadDetector(String lang) throws Exception {
 		if (detectors.containsKey(lang))
 			return;
 
 		File model = new File("resources/opennlp/" + lang + "-sent.bin");
 
-		if (!model.exists()) {
+		if (!model.exists())
 			System.out.println("OpenNLP.Sentencer: No model for language '" + lang + "' found, aborting!");
-			return;
-		}
-
-		try {
+		else
 			detectors.put(lang, new SentenceDetectorME(new SentenceModel(model)));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 }
