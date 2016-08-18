@@ -38,3 +38,11 @@ Cheiron.Datatarget.CSVFile.path = data/out
 Cheiron.Datatarget.CSVFile.filters = metacas
 Cheiron.Datatarget.CSVFile.feature = de.uk.spinfo.types.LemmaTFIDF, de.uk.spinfo.types.EntityTFIDF
 Cheiron.Datatarget.CSVFile.onlytop = 15
+
+# CSVHead datatarget
+Cheiron.Datatarget.CSVHead.run = true
+Cheiron.Datatarget.CSVHead.path = data/out
+Cheiron.Datatarget.CSVHead.filters = metacas
+Cheiron.Datatarget.CSVHead.feature = de.uk.spinfo.types.TokenTFIDF
+Cheiron.Datatarget.CSVHead.featval = value
+Cheiron.Datatarget.CSVHead.onlytop = 15

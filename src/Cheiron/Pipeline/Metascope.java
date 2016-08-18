@@ -10,6 +10,7 @@ import org.apache.uima.jcas.JCas;
 
 import Cheiron.Processor.Custom.Aggregator;
 import Cheiron.Processor.Custom.Inverter;
+import Cheiron.Processor.Tika.Langdetector;
 
 public class Metascope extends Pipeline {
 
@@ -31,15 +32,19 @@ public class Metascope extends Pipeline {
 	@Override
 	public Map<String, JCas> process(Map<String, JCas> cases) throws Exception {
 		JCas metacas = engine.newJCas();
+		Langdetector langdetector = new Langdetector();
 		Aggregator aggregator = new Aggregator();
 		Inverter inverter = new Inverter();
-		String clear = cases.entrySet().stream().map(e -> e.getKey()).collect(Collectors.joining("/"));
+		String clear = cases.entrySet().stream().sorted(Map.Entry.comparingByKey()).map(e -> e.getKey())
+				.collect(Collectors.joining("/"));
 		String hash = "metacas-" + hash(clear);
 
 		metacas.setSofaDataURI(hash, "text/metacas-id");
 
-		for (Entry<String, JCas> entry : cases.entrySet())
+		for (Entry<String, JCas> entry : cases.entrySet()) {
+			langdetector.process(entry.getValue());
 			aggregator.process(entry.getValue());
+		}
 
 		inverter.set("metacas", metacas);
 		inverter.set("pids", aggregator.get("pids"));

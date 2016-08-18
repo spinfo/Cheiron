@@ -15,7 +15,7 @@ public class Langdetector extends Processor {
 		String lang = detector.detect(view.getDocumentText()).getLanguage();
 		view.setDocumentLanguage(lang);
 
-		System.out.println("Tika.Langdetector: " + view.getDocumentText() + "/" + lang);
+		System.out.println("Tika.Langdetector: " + view.getView("_InitialView").getSofaDataURI() + "/" + lang);
 	}
 
 	@Override
