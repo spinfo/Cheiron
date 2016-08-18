@@ -33,7 +33,8 @@ public class Metascope extends Pipeline {
 		JCas metacas = engine.newJCas();
 		Aggregator aggregator = new Aggregator();
 		Inverter inverter = new Inverter();
-		String clear = cases.entrySet().stream().map(e -> e.getKey()).collect(Collectors.joining("/"));
+		String clear = cases.entrySet().stream().sorted(Map.Entry.comparingByKey()).map(e -> e.getKey())
+				.collect(Collectors.joining("/"));
 		String hash = "metacas-" + hash(clear);
 
 		metacas.setSofaDataURI(hash, "text/metacas-id");
