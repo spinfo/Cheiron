@@ -39,6 +39,10 @@ public class CSVFile extends Datatarget {
 
 		while (it.hasNext()) {
 			JCas view = it.next();
+
+			if (view.getViewName().equals("_InitialView"))
+				continue;
+
 			Collection<? extends Annotation> collection = JCasUtil.select(view, cls);
 			Annotation[] array = collection.toArray(new Annotation[collection.size()]);
 
