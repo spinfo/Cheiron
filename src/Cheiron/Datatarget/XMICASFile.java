@@ -12,6 +12,7 @@ import org.apache.uima.jcas.JCas;
 
 public class XMICASFile extends Datatarget {
 
+	protected String ext;
 	protected String path;
 
 	@Override
@@ -22,7 +23,7 @@ public class XMICASFile extends Datatarget {
 			throw new FileNotFolderException(directory.getAbsolutePath());
 
 		for (Entry<String, JCas> e : data.entrySet()) {
-			OutputStream stream = new FileOutputStream(new File(directory, e.getKey() + ".cas"));
+			OutputStream stream = new FileOutputStream(new File(directory, e.getKey() + "." + ext));
 			XmiCasSerializer.serialize(e.getValue().getCas(), stream);
 		}
 	}

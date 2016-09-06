@@ -30,6 +30,7 @@ Cheiron.Pipeline.Metascope.pos = 2
 
 # XMICASFile datatarget
 Cheiron.Datatarget.XMICASFile.run = true
+Cheiron.Datatarget.XMICASFile.ext = xmi
 Cheiron.Datatarget.XMICASFile.path = data/out
 
 # CSVFile datatarget
