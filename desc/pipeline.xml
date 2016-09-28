@@ -36,6 +36,11 @@
 		<delegateAnalysisEngine key="tika_langdetector">
 			<import name="desc.tika_langdetector" />
 		</delegateAnalysisEngine>
+		
+		<delegateAnalysisEngine key="heideltime_timetagger">
+			<import name="desc.heideltime_timetagger" />
+		</delegateAnalysisEngine>
+		
 	</delegateAnalysisEngineSpecifiers>
 	<analysisEngineMetaData>
 		<name>pipeline</name>
