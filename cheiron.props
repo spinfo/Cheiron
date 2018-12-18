@@ -1,49 +1,194 @@
-# Cheiron
+### Prometheus ###
+
+# Einige Konfigurationspunkte greifen direkt oder indirekt auf die Upstream-
+# Konfiguration der Prometheus-Datenbank-API zurueck. Die Dokumentation dieser
+# API findet sich hier: 
+# http://prometheus.uni-koeln.de/pandora/de/api#getSearchAdvancedSearch
+
+
+
+### Cheiron ###
+
+# writelog = (true|false)
+#	true: Logs werden in die Konsole geschrieben
+#	false: Logs werden verworfen (ca. >/dev/null)
 Cheiron.Cheiron.writelog = true
+
+# configfile = <Pfad>
+#	Pfad: Lage der Konfiguration im lokalen Dateisystem relativ zum
+#	Applikationskontext
 Cheiron.Cheiron.configfile = cheiron.props
 
-# Filesystem datasource
+
+
+### Filesystem datasource ###
+
+# run = (true|false)
+#	true: Dateien im spezifizierten Pfad werden als einzelne Prometheus-DB-
+#	Records gelesen
+#	false: Lokale-Dateisystem-Datenquelle wird nicht genutzt
 Cheiron.Datasource.Filesystem.run = false
+
+# path = <Pfad>
+#	Pfad: Lage des Ordners mit Prometheus-DB-Records im lokalen Dateisystem
+#	relativ zum Applikationskontext
 Cheiron.Datasource.Filesystem.path = data/in
+
+# filters = <String>
+#	String: Felder eines Records, die in die Pipeline gegeben werden
 Cheiron.Datasource.Filesystem.filters = description
 
-# Prometheus datasource
+
+
+### Prometheus datasource ###
+
+# run = (true|false)
+#	true: Prometheus-Datenquelle wird genutzt
+#	false: Prometheus-Datenquelle wird nicht genutzt
 Cheiron.Datasource.Prometheus.run = false
+
+# api = <URL>
+#	URL: API-Endpunkt der Prometheus-DB
 Cheiron.Datasource.Prometheus.api = http://prometheus.uni-koeln.de/pandora/api/v1/xml/search/search
+
+# usr = <Benutzername>
+#	Benutzername: Korrektes Login fuer die Prometheus-DB
 Cheiron.Datasource.Prometheus.usr = username
+
+# key = <Passwort>
+#	Passwort: Zum Login gehoerendes Passwort fuer die Prometheus-DB
 Cheiron.Datasource.Prometheus.key = password
+
+# field = <String>
+#	String: Prometheus-DB-Datenbankfeld, dass durchsucht werden soll
 Cheiron.Datasource.Prometheus.field = all
-Cheiron.Datasource.Prometheus.param = mysearchterm
+
+# param = <String>
+#	String: Suchparameter, welches in den spezifizierten Feldern enthalten
+#	sein muss
+Cheiron.Datasource.Prometheus.param = apfel
+
+# limit = <Integer>
+#	Integer: Anzahl der von der Prometheus-DB-Suche zurueckzugebenden
+#	DB-Records
 Cheiron.Datasource.Prometheus.limit = 50
+
+# filters = <String>
+#	String: Felder eines Records, die in die Pipeline gegeben werden
 Cheiron.Datasource.Prometheus.filters = description
+
+# sources = <Liste>
+#	Liste: Prometheus-Datenbanken, die durchsucht werden (leer = alle)
 Cheiron.Datasource.Prometheus.sources = 
+
+# logical = (and|or|not)
+#	and: Logischer Und-Operator, alle Suchbegriffe muessen enthalten sein
+#	or: Logischer Oder-Operator, ein Suchbegriff muss enthalten sein
+#	not: Logischer Nicht-Opperator, kein Suchbegriff darf enthalten sein
 Cheiron.Datasource.Prometheus.logical = and
+
+# orderby = (relevance|artist|title|location|credits|source_title|rating|
+#	comments)
+#	*: Sortierreihenfolge der Suchergebnisse
 Cheiron.Datasource.Prometheus.orderby = relevance
 
-# Primary pipeline
+
+
+### Primary pipeline ###
+
+# run = (true|false)
+#	true: Primaere Pipeline wird genutzt
+#	false: Primaere Pipeline wird nicht genutzt
 Cheiron.Pipeline.Primary.run = true
+
+# pos = <Integer>
+#	Integer: Position der Pipeline im Programmablauf
 Cheiron.Pipeline.Primary.pos = 1
 
-# Metascope pipeline
+
+
+### Metascope pipeline ###
+
+# run = (true|false)
+#	true: Metascope Pipeline wird genutzt
+#	false: Metascope Pipeline wird nicht genutzt
 Cheiron.Pipeline.Metascope.run = false
+
+# pos = <Integer>
+#	Integer: Position der Pipeline im Programmablauf
 Cheiron.Pipeline.Metascope.pos = 2
 
-# XMICASFile datatarget
+
+
+### XMICASFile datatarget ###
+
+# run = (true|false)
+#	true: Analyseergebnisse werden als XMI-Datei ausgegeben
+#	false: Analyseergebnisse werden nicht als XMI-Datei ausgegeben
 Cheiron.Datatarget.XMICASFile.run = true
+
+# ext = <String>
+#	Dateitypen-Erweiterung fuer die XMI-Datei Ausgabe
 Cheiron.Datatarget.XMICASFile.ext = xmi
+
+# path = <Pfad>
+#	Pfad: Lage des Ordners relativ zum Applikationskontext, in den die
+#	Analyseergebnisse als XMI-Datei ausgegeben werden
 Cheiron.Datatarget.XMICASFile.path = data/out
 
-# CSVFile datatarget
+
+
+### CSVFile datatarget ###
+
+# run = (true|false)
+#	true: Analyseergebnisse werden als CSV-Datei ausgegeben
+#	false: Analyseergebnisse werden nicht als CSV-Datei ausgegeben
 Cheiron.Datatarget.CSVFile.run = true
+
+# path = <Pfad>
+#	Pfad: Lage des Ordners relativ zum Applikationskontext, in den die
+#	Analyseergebnisse als CSV-Datei ausgegeben werden
 Cheiron.Datatarget.CSVFile.path = data/out
+
+# filters = <String>
+#	String: CAS-View, der in die Analyse einbezogen werden sollen
 Cheiron.Datatarget.CSVFile.filters = metacas
+
+# feature = <Liste>
+#	Liste: CAS-Features, die in die Analyse einbezogen werden sollen
 Cheiron.Datatarget.CSVFile.feature = de.uk.spinfo.types.LemmaTFIDF, de.uk.spinfo.types.EntityTFIDF
+
+# onlytop = <Integer>
+#	Integer: Bei der Analyse nur die ersten Eintraege beruecksichtigen
 Cheiron.Datatarget.CSVFile.onlytop = 15
 
-# CSVHead datatarget
+
+
+### CSVHead datatarget ###
+
+# run = (true|false)
+#	true: Analyseergebnisse werden als CSV-Datei ausgegeben
+#	false: Analyseergebnisse werden nicht als CSV-Datei ausgegeben
 Cheiron.Datatarget.CSVHead.run = true
+
+# path = <Pfad>
+#	Pfad: Lage des Ordners relativ zum Applikationskontext, in den die
+#	Analyseergebnisse als CSV-Datei ausgegeben werden
 Cheiron.Datatarget.CSVHead.path = data/out
+
+# filters = <String>
+#	String: CAS-View, der in die Analyse einbezogen werden sollen
 Cheiron.Datatarget.CSVHead.filters = metacas
+
+# feature = <Liste>
+#	Liste: CAS-Features, die in die Analyse einbezogen werden sollen
 Cheiron.Datatarget.CSVHead.feature = de.uk.spinfo.types.TokenTFIDF
+
+# featval = <String>
+#	String: Feld des Features, welches zur Analyse genutzt werden soll
 Cheiron.Datatarget.CSVHead.featval = value
+
+# onlytop = <Integer>
+#	Integer: Bei der Analyse nur die ersten Eintraege beruecksichtigen
 Cheiron.Datatarget.CSVHead.onlytop = 15
+
